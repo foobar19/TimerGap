@@ -51,6 +51,8 @@ $(document).on('pageinit', '#countdown_page', function() {
 		pauseCountdown();
 		$(this).parent().hide();
 		$('#resume_b').parent().show();
+		$('#resume_b').parent().css("background", "#5DC86B");
+		$('#resume_b').parent().trigger("refresh");
 	});
 
 	$('#resume_b').on('tap', function() {
@@ -71,7 +73,6 @@ $(document).on('pageinit', '#countdown_page', function() {
 		console.log("countdown_page pagebeforeshow");
 		updateLast5();
 	});
-
 });
 
 $(document).on('pageinit', '#addcd_page', function() {
@@ -95,9 +96,12 @@ $(document).on('pageinit', '#addcd_page', function() {
 });
 
 $(document).on('pageinit', '#list_page', function() {
-
 	console.log("list_page pageinit");
-	showList();
+	
+	$('#list_page').on('pagebeforeshow', function() {
+		console.log("list_page pagebeforeshow");
+		showList();
+	});
 
 	$(this).on('tap', '#time_list li', function() {
 		console.log("time_list tap");
@@ -132,6 +136,8 @@ function startCountdown(mins, secs) {;
 	$('#resume_b').parent().hide();
 	$('#restart_b').parent().show();
 	$('#stop_b').parent().show();
+	$('#stop_b').parent().css("background", "#E47373");
+	$('#stop_b').parent().trigger("refresh");
 };
 
 function pauseCountdown() {
@@ -198,7 +204,6 @@ function updateLast5() {
 	var times = new Array();
 	times = getTimes();
 	var values;
-	console.log(Object.keys(localStorage));
 	var rawHTML = "<ul id=\"savedtimes\" data-role=\"listview\" data-inset=true>";
 	var timeSize = 0;
 
@@ -207,13 +212,12 @@ function updateLast5() {
 
 	for (var i = 0; i < timeSize; i++) {
 		values = times[i].split(";");
-		rawHTML += ("<li><a>" + values[0] + " <span class=\"ul-li-count\">" + values[1] + "</span></a></li>");
+		rawHTML += ("<li><a>" + values[0] + " <span class='ui-li-count'>" + values[1] + "</span></a></li>");
 	};
 
-	rawHTML += "</ul>";
+	//rawHTML += "</ul>";
 	$('#last5').html(rawHTML);
 	$('#savedtimes').listview();
-	//$('#savedtimes').listview().prototype.options.inset = true;
 };
 
 function showList() {
@@ -230,7 +234,7 @@ function showList() {
 
 	for (var i = 0; i < times.length; i++) {
 		values = times[i].split(";");
-		rawHTML += ("<li><a>" + values[0] + " " + values[1] + "</a></li>");
+		rawHTML += ("<li><a>" + values[0] + " <span class='ui-li-count'>" + values[1] + "</span></a></li>");
 	};
 
 	rawHTML += "</ul>";
