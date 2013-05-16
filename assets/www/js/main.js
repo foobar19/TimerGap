@@ -2,6 +2,7 @@ $(document).on('pageinit', '#countdown_page', function() {
 	$('#stop_b').parent().hide();
 	$('#resume_b').parent().hide();
 	$('#restart_b').parent().hide();
+	
 
 	/*jQuery.extend(jQuery.mobile.datebox.prototype.options, {
 	    'dateFormat': 'mm/dd/YYYY',
